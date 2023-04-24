@@ -31,7 +31,7 @@ public class Vertex: Equatable {
     }
     
     public static func == (lhs: Vertex, rhs: Vertex) -> Bool {
-        lhs === rhs
+		 lhs.x == rhs.x && lhs.y == rhs.y
     }
 }
 
