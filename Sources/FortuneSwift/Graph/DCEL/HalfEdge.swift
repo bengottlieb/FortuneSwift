@@ -78,15 +78,16 @@ public class HalfEdge: Equatable {
      - Returns: An array of the edges in a ring, nil if the edges do not form a ring.
      */
     public func walk() -> [HalfEdge]? {
-        
         var ring: [HalfEdge] = []
         var currentEdge: HalfEdge = self
-        while currentEdge != self {
-            ring.append(currentEdge)
-            
-            guard let next = currentEdge.next else { return nil }
-            currentEdge = next
-        }
+		  while true {
+			   ring.append(currentEdge)
+			 
+			   guard let next = currentEdge.next else { return nil }
+			   if ring.contains(next) { break }
+			   currentEdge = next
+		  }
+		  
         return ring
     }
     
@@ -95,7 +96,7 @@ public class HalfEdge: Equatable {
     //MARK: - Equatable
     
     public static func == (lhs: HalfEdge, rhs: HalfEdge) -> Bool {
-        lhs === rhs
+		 lhs.origin == rhs.origin && lhs.destination == rhs.destination
     }
 }
 
