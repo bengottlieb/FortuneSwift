@@ -9,7 +9,7 @@
 import Foundation
 
 /** Defines a voronoi vertex. */
-public class Vertex: Equatable {
+public class Vertex: Equatable, Hashable {
     
     public var x: Double
     public var y: Double
@@ -33,6 +33,12 @@ public class Vertex: Equatable {
     public static func == (lhs: Vertex, rhs: Vertex) -> Bool {
 		 lhs.x == rhs.x && lhs.y == rhs.y
     }
+	
+	public func hash(into hasher: inout Hasher) {
+		hasher.combine(x)
+		hasher.combine(y)
+	}
+
 }
 
 
