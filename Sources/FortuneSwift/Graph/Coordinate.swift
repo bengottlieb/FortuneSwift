@@ -8,6 +8,16 @@
 
 import Foundation
 
+extension CGPoint: Comparable {
+	public static func == (lhs: CGPoint, rhs: CGPoint) -> Bool {
+		lhs.x == rhs.x && lhs.y == rhs.y
+	}
+	
+	public static func < (lhs: Self, rhs: Self) -> Bool {
+		 lhs.y < rhs.y
+	}
+}
+
 /** Defines a coordinate location in space. */
 public struct Coordinate: Comparable, Equatable {
     public var x: Double

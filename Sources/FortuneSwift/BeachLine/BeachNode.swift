@@ -19,17 +19,17 @@ class BeachNode {
      - parabola: A leaf node defining a frontier of the beach line.
      */
     enum Data {
-        case breakpoint(sites: (Coordinate, Coordinate), edge: HalfEdge?)
-        case parabola(site: Coordinate, circleEvent: Event?)
+        case breakpoint(sites: (CGPoint, CGPoint), edge: HalfEdge?)
+        case parabola(site: CGPoint, circleEvent: Event?)
         
         //convenience for variables getting values
-        var parabolaSite: Coordinate? {
+        var parabolaSite: CGPoint? {
             get {
                 guard case .parabola(site: let p, _) = self else { return nil }
                 return p
             }
         }
-        var breakpointSites: (Coordinate, Coordinate)? {
+        var breakpointSites: (CGPoint, CGPoint)? {
             get {
                 guard case .breakpoint(sites: let s, _) = self else { return nil }
                 return s
@@ -61,7 +61,7 @@ class BeachNode {
         }
         
         //updating one or both breakpoint sites.
-        mutating func updateBreakpointSites(left: Coordinate? = nil, right: Coordinate? = nil) {
+        mutating func updateBreakpointSites(left: CGPoint? = nil, right: CGPoint? = nil) {
             guard case .breakpoint(sites: let original, edge: let e) = self else { return }
             if let leftSite = left, let rightSite = right {
                 self = .breakpoint(sites: (leftSite, rightSite), edge: e)
@@ -218,7 +218,7 @@ class BeachNode {
      - Returns: The BeachNode(data = parabola) that is above it, or nil if a breakpoint fails to be computed.
      - Performance: O(log n)
      */
-    func findParabola(above coordinate: Coordinate) -> BeachNode? {
+    func findParabola(above coordinate: CGPoint) -> BeachNode? {
         let key = coordinate.x
         let sweepLine = coordinate.y
         var currentNode: BeachNode = self

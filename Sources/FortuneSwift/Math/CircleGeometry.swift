@@ -15,7 +15,7 @@ struct CircleGeometry {
      - Fails if the points are collinear
      - Returns: The center of the circle and the point on the circle at which the circleEvent occurs
      */
-    static func make(_ p1: Coordinate, _ p2: Coordinate, _ p3: Coordinate) -> (center: Coordinate, eventPoint: Coordinate)? {
+    static func make(_ p1: CGPoint, _ p2: CGPoint, _ p3: CGPoint) -> (center: CGPoint, eventPoint: CGPoint)? {
         let a = p1
         let b = p2
         let c = p3
@@ -33,10 +33,10 @@ struct CircleGeometry {
         guard G != 0 else { return nil }
         let centerX = ((D * E) - (B * F)) / G
         let centerY = ((A * F) - (C * E)) / G
-        let center = Coordinate(x: centerX, y: centerY)
+        let center = CGPoint(x: centerX, y: centerY)
         
         let radius = sqrt(((a.x - centerX) ** 2) + ((a.y - centerY) ** 2))
-        let bottomPoint = Coordinate(x: centerX, y: centerY + radius)
+        let bottomPoint = CGPoint(x: centerX, y: centerY + radius)
         
         return (center: center, eventPoint: bottomPoint)
     }
@@ -51,7 +51,7 @@ struct CircleGeometry {
     }
     
     /** Get the radian angle between a point on a circle and the center of the circle. */
-    static func getAngle(point: Coordinate, center: Coordinate) -> Double {
+    static func getAngle(point: CGPoint, center: CGPoint) -> Double {
         let dx = point.x - center.x
         let dy = point.y - center.y
         var theta = atan2(dy, dx)
@@ -60,7 +60,7 @@ struct CircleGeometry {
     }
     
     /** Check whether the specified three points are ordered clockwise around the circle defined by the center */
-    static func checkClockwise(_ p1: Coordinate, _ p2: Coordinate, _ p3: Coordinate, center: Coordinate) -> Bool {
+    static func checkClockwise(_ p1: CGPoint, _ p2: CGPoint, _ p3: CGPoint, center: CGPoint) -> Bool {
         let theta1 = getAngle(point: p1, center: center)
         let theta2 = getAngle(point: p2, center: center)
         let theta3 = getAngle(point: p3, center: center)

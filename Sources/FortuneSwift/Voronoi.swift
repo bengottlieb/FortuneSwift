@@ -13,12 +13,12 @@ public struct Voronoi {
     
     var fortune = Fortune()
     
-    private var sites: [Coordinate] = []
+    private var sites: [CGPoint] = []
     public var voronoiVertices: [Vertex]?
     public var voronoiEdges: [HalfEdge]?
     public var voronoiSites: [Site]?
     
-    public init(sites: [Coordinate]? = nil, numPoints: Int, rect: (x: Double, y: Double, width: Double, height: Double)) {
+    public init(sites: [CGPoint]? = nil, numPoints: Int, rect: (x: Double, y: Double, width: Double, height: Double)) {
         
         self.sites = sites ?? generateRandomSites(num: numPoints, rect: rect)
         let boundingRect = BoundingRect(x: rect.x, y: rect.y, width: rect.width, height: rect.height)
@@ -37,12 +37,12 @@ public struct Voronoi {
      - Parameter num: The number of points to generate.
      - Parameter rect: The specified rect.
      */
-    private func generateRandomSites(num: Int, rect: (x: Double, y: Double, width: Double, height: Double)) -> [Coordinate] {
+    private func generateRandomSites(num: Int, rect: (x: Double, y: Double, width: Double, height: Double)) -> [CGPoint] {
         guard num >= 1 else { return [] }
 
-        var generatedSites: [Coordinate] = []
+        var generatedSites: [CGPoint] = []
         for _ in 1...num {
-            generatedSites.append(Coordinate(x: Double.random(in: rect.x...(rect.x + rect.width)),
+            generatedSites.append(CGPoint(x: Double.random(in: rect.x...(rect.x + rect.width)),
                                              y: Double.random(in: rect.y...(rect.y + rect.height))))
         }
         return generatedSites

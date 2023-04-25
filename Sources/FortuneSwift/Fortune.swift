@@ -28,7 +28,7 @@ struct Fortune {
      - Parameter sites: The sites to generate the diagram from.
      - Parameter boundingRect: The area to draw the diagram in.
      */
-    mutating func calcVoronoi(from sites: [Coordinate], boundingRect: BoundingRect? = nil) ->
+    mutating func calcVoronoi(from sites: [CGPoint], boundingRect: BoundingRect? = nil) ->
         (sites: [Site], vertices: [Vertex], edges: [HalfEdge]) {
             
         eventQueue = PriorityQueue<Event>(array: Event.array(sites: sites), sort: <)
@@ -64,7 +64,7 @@ struct Fortune {
      - Parameter site: The coordinate of the site.
      - Performance: O(log n) average
      */
-    private mutating func handleSiteEvent(at site: Coordinate) {
+    private mutating func handleSiteEvent(at site: CGPoint) {
         if let currentBeachLine = beachLine {
             //finding the parabola at the coordinate's x position
             guard let parabolaAboveSite = currentBeachLine.findParabola(above: site) else { return }
@@ -145,7 +145,7 @@ struct Fortune {
      - Parameter parabola: The parabola that is disappearing.
      - Performance: O(log n) average.
      */
-    private mutating func handleCircleEvent(at coordinate: Coordinate, center: Coordinate, parabola: BeachNode) {
+    private mutating func handleCircleEvent(at coordinate: CGPoint, center: CGPoint, parabola: BeachNode) {
         guard let predecessor = parabola.predecessor() else { return }
         guard let successor = parabola.successor() else { return }
         

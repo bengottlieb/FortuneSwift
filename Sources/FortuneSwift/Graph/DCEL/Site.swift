@@ -20,15 +20,15 @@ public class Site: Equatable {
         firstEdge?.walk()
     }
     
-    public var coordinate: Coordinate {
-        Coordinate(x: x, y: y)
+    public var coordinate: CGPoint {
+		 CGPoint(x: x, y: y)
     }
     
     public init(x: Double, y: Double) {
         self.x = x
         self.y = y
     }
-    public init(_ coordinate: Coordinate) {
+    public init(_ coordinate: CGPoint) {
         self.x = coordinate.x
         self.y = coordinate.y
     }

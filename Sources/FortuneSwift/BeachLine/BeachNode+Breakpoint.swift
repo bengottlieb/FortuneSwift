@@ -17,7 +17,7 @@ extension BeachNode.Data {
      - Returns: The coordinates of the intersection, or y=nil if the intersection does not exist.
      - Performance: O(1)
      */
-    func calcBreakpoint(sweepLine: Double) -> Coordinate? {
+    func calcBreakpoint(sweepLine: Double) -> CGPoint? {
         guard let (i, j) = breakpointSites else { return nil }
         
         let l = sweepLine
@@ -30,7 +30,7 @@ extension BeachNode.Data {
         var output: (x: Double, y: Double) = (x: 0, y: 0)
         
         //Arbitrary parabola to substitute output.x into at end to find output.y
-        var p: Coordinate = i
+        var p: CGPoint = i
         
         //finding x
         if i.y == j.y {
@@ -64,7 +64,7 @@ extension BeachNode.Data {
         let x = output.x
         output.y = (1 / u) * (((x - a) ** 2) + (b ** 2) - (l ** 2))
         
-        return Coordinate(x: output.x, y: output.y)
+        return CGPoint(x: output.x, y: output.y)
     }
 }
 

@@ -32,7 +32,7 @@ struct BoundingRect {
      - Outputs false if the point is nil.
      */
     private let containsPrecision: Double = 0.01
-    private func contains(_ point: Coordinate?) -> Bool {
+    private func contains(_ point: CGPoint?) -> Bool {
         guard let p = point else { return false }
         
         let xCondition = (x - containsPrecision)...(x + width + containsPrecision) ~= p.x
@@ -68,7 +68,7 @@ struct BoundingRect {
     
     /** Re-orders the given vertices clockwise based on the center of the rect. */
     private func orderVerticesClockwise(_ vertices: [Vertex]) -> [Vertex] {
-        let center = Coordinate(x: x + (width/2), y: y + (height/2))
+        let center = CGPoint(x: x + (width/2), y: y + (height/2))
         return vertices.sorted {
             let a1 = CircleGeometry.getAngle(point: $0.coordinate, center: center)
             let a2 = CircleGeometry.getAngle(point: $1.coordinate, center: center)
@@ -213,9 +213,9 @@ struct BoundingRect {
      - Outputs end as nil if it hasn't changed.
      - Returns nil if the edge has neither breakpoint nor origin, or if the edge has no destination.
      */
-    private func boundEdge(_ edge: HalfEdge) -> (start: Coordinate, end: Coordinate?)? {
+    private func boundEdge(_ edge: HalfEdge) -> (start: CGPoint, end: CGPoint?)? {
         
-        var startPoint: Coordinate?
+        var startPoint: CGPoint?
         if let breakpoint = edge.breakpoint { //breakpoint case
             let superSweepLine = 2 * (y + height) //extend a sweepline to 2x distance to find the breakpoint
             startPoint = breakpoint.data.calcBreakpoint(sweepLine: superSweepLine)
@@ -239,7 +239,7 @@ struct BoundingRect {
      - Parameter end: The end of the ray, assumed to be a vertex within OR outside of bounds
      - Returns: A new set of start and end coordinates bounded by this rect. nil if no such coordinates can be found.
      */
-    private func getRaycastPoints(start: Coordinate, end: Coordinate) -> (start: Coordinate, end: Coordinate?)? {
+    private func getRaycastPoints(start: CGPoint, end: CGPoint) -> (start: CGPoint, end: CGPoint?)? {
         
         if contains(end) { //if the end is inside, end->start ray will always pass through one border.
             for segment in borderSegments {
@@ -253,8 +253,8 @@ struct BoundingRect {
             
             //we cast the ray from end->start and start->end, thus checking whether the two borders are between or one one side of the ray "points"
             //we ignore the edges that are not in between the start and end points.
-            var borderPointsForward: [Coordinate] = []
-            let borderPointsBackward: [Coordinate] = []
+            var borderPointsForward: [CGPoint] = []
+            let borderPointsBackward: [CGPoint] = []
 
             for segment in borderSegments {
                 if let forwardPoints = VectorGeometry.lineRayIntersection(rayEnd: start, rayOrigin: end, p1: segment.0.coordinate, p2: segment.1.coordinate) {
@@ -291,8 +291,8 @@ struct BoundingRect {
     }
 }
 
-private extension Coordinate {
-    func distance(to coordinate: Coordinate) {
+private extension CGPoint {
+    func distance(to coordinate: CGPoint) {
         sqrt(((coordinate.x - x) ** 2) + ((coordinate.y - y) ** 2))
     }
 }

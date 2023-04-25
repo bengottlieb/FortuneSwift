@@ -13,10 +13,10 @@ import Foundation
  */
 enum Event: Comparable, Equatable {
     
-    case site(Coordinate)
-    case circle(Coordinate, center: Coordinate, parabola: Weak<BeachNode>)
+    case site(CGPoint)
+    case circle(CGPoint, center: CGPoint, parabola: Weak<BeachNode>)
     
-    var coordinate: Coordinate {
+    var coordinate: CGPoint {
         switch self {
         case .site(let p): return p
         case .circle(let p, _, _): return p
@@ -27,7 +27,7 @@ enum Event: Comparable, Equatable {
      Generates an array of site events
      - Parameter sites: An array of sites.
      */
-    static func array(sites: [Coordinate]) -> [Event] {
+    static func array(sites: [CGPoint]) -> [Event] {
         var eventArray: [Event] = []
         sites.forEach { eventArray.append(.site($0)) }
         return eventArray

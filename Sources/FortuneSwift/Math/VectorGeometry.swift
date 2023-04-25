@@ -19,8 +19,8 @@ struct VectorGeometry {
         var magnitude: Double {
             sqrt((x ** 2) + (y ** 2))
         }
-        var coordinate: Coordinate {
-            Coordinate(x: x, y: y)
+        var coordinate: CGPoint {
+			  CGPoint(x: x, y: y)
         }
         
         init(x: Double, y: Double) {
@@ -28,7 +28,7 @@ struct VectorGeometry {
             self.y = y
         }
         
-        init(_ coordinate: Coordinate) {
+        init(_ coordinate: CGPoint) {
             self.x = coordinate.x
             self.y = coordinate.y
         }
@@ -63,7 +63,7 @@ struct VectorGeometry {
      - Parameter p2: Second point of a line segment.
      - Returns: The coordinate of the intersection, or nil if no intersection.
      */
-    static func lineRayIntersection(rayEnd: Coordinate, rayOrigin: Coordinate, p1: Coordinate, p2: Coordinate) -> Coordinate? {
+    static func lineRayIntersection(rayEnd: CGPoint, rayOrigin: CGPoint, p1: CGPoint, p2: CGPoint) -> CGPoint? {
         //p + t*r = q + u*s
         //where p: origin, q: point1
         
