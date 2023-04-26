@@ -28,7 +28,7 @@ struct Fortune {
 	 - Parameter sites: The sites to generate the diagram from.
 	 - Parameter boundingRect: The area to draw the diagram in.
 	 */
-	mutating func calcVoronoi(from seeds: [CGPoint], boundingRect: BoundingRect? = nil) ->
+	mutating func calcVoronoi(from seeds: [CGPoint], boundingRect: CGRect? = nil) ->
 	(sites: [Site], vertices: [Vertex], edges: [HalfEdge]) {
 		
 		eventQueue = PriorityQueue<Event>(array: Event.array(sites: seeds), sort: <)

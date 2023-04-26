@@ -9,10 +9,14 @@
 import Foundation
 
 /** Defines a site of a voronoi diagram. */
-public class Site: Equatable, Hashable {
+public class Site: Equatable, Hashable, Comparable {
 	
 	public var x: Double
 	public var y: Double
+	
+	public static func <(lhs: Site, rhs: Site) -> Bool {
+		lhs.x * lhs.y < rhs.x * rhs.y
+	}
 	
 	//An edge along a border of the cell of this site
 	public weak var firstEdge: HalfEdge?
